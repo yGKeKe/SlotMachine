@@ -2,6 +2,7 @@ package com.example.slotmachine;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class HelpScreen extends AppCompatActivity {
 
@@ -11,7 +12,7 @@ public class HelpScreen extends AppCompatActivity {
         setContentView(R.layout.activity_help_screen);
     }
 
-    public void btnMainGame(){
+    public void btnMainGame(View view){
         finish();
     }
 }

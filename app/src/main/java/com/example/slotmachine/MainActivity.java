@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnStart(View view){
         boolIsActive = true;
-        intInitSpeedReelOne = (ranNum.nextInt(201) + 100);
-        intInitSpeedReelTwo = (ranNum.nextInt(201) + 100);
-        intInitSpeedReelThree = (ranNum.nextInt(201) + 100);
+        intInitSpeedReelOne = (ranNum.nextInt(126) + 100);
+        intInitSpeedReelTwo = (ranNum.nextInt(126) + 100);
+        intInitSpeedReelThree = (ranNum.nextInt(126) + 100);
         intSpeedReelOne = intInitSpeedReelOne;
         intSpeedReelTwo = intInitSpeedReelTwo;
         intSpeedReelThree = intInitSpeedReelThree;
