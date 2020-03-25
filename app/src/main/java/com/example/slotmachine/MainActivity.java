@@ -1,7 +1,7 @@
 package com.example.slotmachine;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,10 +9,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvScore;
     private SeekBar seekbarDifficulty;
     private Handler hndlrReels;
-    private int intInitSpeedReelOne, intInitSpeedReelTwo, intInitSpeedReelThree, intSpeedReelOne, intSpeedReelTwo, intSpeedReelThree, intScore, intIMGOne, intIMGTwo, intIMGThree;
-    private boolean boolIsActive, boolReelOneActive, boolReelTwoActive, boolReelThreeActive;
+    private int intInitSpeedReelOne, intInitSpeedReelTwo, intInitSpeedReelThree, intSpeedReelOne,
+            intSpeedReelTwo, intSpeedReelThree, intScore, intIMGOne, intIMGTwo, intIMGThree;
+    private boolean boolIsActive;
     private Button btnStart;
-    private LinearLayout linlayButtonGroup;
     private Random ranNum;
     private ReelOne ReelOne;
     private ReelTwo ReelTwo;
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         tvScore = findViewById(R.id.tvScorePoints);
         btnStart = findViewById(R.id.btnStart);
         seekbarDifficulty = findViewById(R.id.seekbarDifficulty);
-        linlayButtonGroup = findViewById(R.id.layoutButtonGroup);
         hndlrReels = new Handler();
         boolIsActive = false;
         intScore = 0;
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         ReelThree = new ReelThree();
     }
 
-    public void onSaveInstanceState(Bundle savedInstanceState){
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("Score", intScore);
         savedInstanceState.putBoolean("isActive", boolIsActive);
@@ -73,50 +70,33 @@ public class MainActivity extends AppCompatActivity {
         if( savedInstanceState != null){
             intScore = savedInstanceState.getInt("Score");
             boolIsActive = savedInstanceState.getBoolean("isActive");
-            tvScore.setText("" + intScore);
+            tvScore.setText(getString(R.string.tvScore, intScore));
         }
     }
 
     public void btnStart(View view){
-        boolIsActive = true;
-        intInitSpeedReelOne = (ranNum.nextInt(126) + 100);
-        intInitSpeedReelTwo = (ranNum.nextInt(126) + 100);
-        intInitSpeedReelThree = (ranNum.nextInt(126) + 100);
-        intSpeedReelOne = intInitSpeedReelOne;
-        intSpeedReelTwo = intInitSpeedReelTwo;
-        intSpeedReelThree = intInitSpeedReelThree;
-        hndlrReels.postDelayed(ReelOne, 0);
-        boolReelOneActive = true;
-        hndlrReels.postDelayed(ReelTwo, 0);
-        boolReelTwoActive = true;
-        hndlrReels.postDelayed(ReelThree, 0);
-        boolReelThreeActive = true;
-        btnStart.setVisibility(View.GONE);
-        linlayButtonGroup.setVisibility(View.VISIBLE);
+        if(!boolIsActive) {
+            boolIsActive = true;
+            intInitSpeedReelOne = (ranNum.nextInt(101) + 100);
+            intInitSpeedReelTwo = (ranNum.nextInt(101) + 100);
+            intInitSpeedReelThree =  (ranNum.nextInt(101) + 100);
+            initSeekBarProgress(seekbarDifficulty.getProgress());
+            hndlrReels.postDelayed(ReelOne, 0);
+            hndlrReels.postDelayed(ReelTwo, 0);
+            hndlrReels.postDelayed(ReelThree, 0);
+            btnStart.setText(R.string.btnStop);
+        }else{
+            boolIsActive = false;
+            stopReels();
+            btnStart.setText(R.string.btnStart);
+        }
     }
 
-    public void btnReelOne(View view){
+    private void stopReels(){
         hndlrReels.removeCallbacks(ReelOne);
-        boolReelOneActive = false;
-        if(!boolReelTwoActive && !boolReelThreeActive){
-            awardPoints();
-        }
-    }
-
-    public void btnReelTwo(View view){
         hndlrReels.removeCallbacks(ReelTwo);
-        boolReelTwoActive = false;
-        if(!boolReelOneActive && !boolReelThreeActive){
-            awardPoints();
-        }
-    }
-
-    public void btnReelThree(View view){
         hndlrReels.removeCallbacks(ReelThree);
-        boolReelThreeActive = false;
-        if(!boolReelOneActive && !boolReelTwoActive){
-            awardPoints();
-        }
+        awardPoints();
     }
 
     private void awardPoints(){
@@ -129,9 +109,7 @@ public class MainActivity extends AppCompatActivity {
             if(intIMGThree == 1) intScore += 10;
         }
 
-        tvScore.setText("" + intScore);
-        linlayButtonGroup.setVisibility(View.GONE);
-        btnStart.setVisibility(View.VISIBLE);
+        tvScore.setText(getString(R.string.tvScore, intScore));
     }
 
     private class ReelOne implements Runnable{
@@ -167,6 +145,74 @@ public class MainActivity extends AppCompatActivity {
                 intIMGThree++;
             }
             hndlrReels.postDelayed(ReelThree, intSpeedReelThree);
+        }
+    }
+
+    public void initSeekBarProgress(int sbProgress) {
+        switch (sbProgress) {
+            case 0:
+                seekbarDifficultySpeedMultiplier(5.0);
+                break;
+            case 1:
+                seekbarDifficultySpeedMultiplier(4.8);
+                break;
+            case 2:
+                seekbarDifficultySpeedMultiplier(4.6);
+                break;
+            case 3:
+                seekbarDifficultySpeedMultiplier(4.4);
+                break;
+            case 4:
+                seekbarDifficultySpeedMultiplier(4.2);
+                break;
+            case 5:
+                seekbarDifficultySpeedMultiplier(4.0);
+                break;
+            case 6:
+                seekbarDifficultySpeedMultiplier(3.8);
+                break;
+            case 7:
+                seekbarDifficultySpeedMultiplier(3.6);
+                break;
+            case 8:
+                seekbarDifficultySpeedMultiplier(3.4);
+                break;
+            case 9:
+                seekbarDifficultySpeedMultiplier(3.2);
+                break;
+            case 10:
+                seekbarDifficultySpeedMultiplier(3.0);
+                break;
+            case 11:
+                seekbarDifficultySpeedMultiplier(2.8);
+                break;
+            case 12:
+                seekbarDifficultySpeedMultiplier(2.6);
+                break;
+            case 13:
+                seekbarDifficultySpeedMultiplier(2.4);
+                break;
+            case 14:
+                seekbarDifficultySpeedMultiplier(2.2);
+                break;
+            case 15:
+                seekbarDifficultySpeedMultiplier(2.0);
+                break;
+            case 16:
+                seekbarDifficultySpeedMultiplier(1.8);
+                break;
+            case 17:
+                seekbarDifficultySpeedMultiplier(1.6);
+                break;
+            case 18:
+                seekbarDifficultySpeedMultiplier(1.4);
+                break;
+            case 19:
+                seekbarDifficultySpeedMultiplier(1.2);
+                break;
+            case 20:
+                seekbarDifficultySpeedMultiplier(1.0);
+                break;
         }
     }
 

@@ -8,9 +8,8 @@
 
     <TextView
         android:id="@+id/tvScore2"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="208dp"
+        android:layout_height="64dp"
         android:text="@string/tvScoreString"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -21,9 +20,8 @@
 
     <TextView
         android:id="@+id/tvScorePoints"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="208dp"
+        android:layout_height="64dp"
         android:text="@string/tvScoreZero"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -36,11 +34,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:layout_marginBottom="239dp"
+        android:layout_marginTop="72dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -80,16 +77,14 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="125dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="92dp"
         android:background="@drawable/buttonbackground"
         android:onClick="btnStart"
         android:text="@string/btnStart"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnHelp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintEnd_toStartOf="@+id/btnHelp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -97,35 +92,32 @@
         android:id="@+id/btnHelp"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="130dp"
-        android:layout_marginBottom="7dp"
         android:background="@drawable/buttonbackground"
         android:onClick="btnHelp"
         android:text="@string/btnHelp"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvDifficulty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
+        app:layout_constraintStart_toEndOf="@+id/btnStart"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/tvDifficulty"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="27dp"
         android:layout_marginStart="135dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="135dp"
-        android:layout_marginBottom="15dp"
         android:text="@string/tvDifficulty"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/seekbarDifficulty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHelp" />
+        app:layout_constraintTop_toBottomOf="@+id/btnStart" />
 
     <SeekBar
         android:id="@+id/seekbarDifficulty"
@@ -139,8 +131,9 @@
         android:progress="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDifficulty" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDifficulty"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

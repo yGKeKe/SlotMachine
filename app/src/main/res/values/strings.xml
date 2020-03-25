@@ -11,4 +11,6 @@
     <string name="tvScoreInstructions">50 Points: Three matching fruits. \n10 Points: Each cherry in a non-matching set. </string>
     <string name="btnMainGame">Main Game</string>
     <string name="btnStop">Stop</string>
+    <string name="cDFruit">Content: Fruit Image</string>
+    <string name="tvScore">%1$d</string>
 </resources>
