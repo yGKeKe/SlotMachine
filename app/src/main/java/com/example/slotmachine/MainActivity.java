@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initFields();
-        seekbarDifficultyListener();
         resumeInstanceState(savedInstanceState);
+        seekbarDifficultyListener();
     }
 
     private void initFields(){
@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
         ReelOne = new ReelOne();
         ReelTwo = new ReelTwo();
         ReelThree = new ReelThree();
+        intIMGOne = 0;
+        intIMGTwo = 0;
+        intIMGThree = 0;
+        ivReelOne.setImageDrawable(drwImages[intIMGOne]);
+        ivReelTwo.setImageDrawable(drwImages[intIMGTwo]);
+        ivReelThree.setImageDrawable(drwImages[intIMGThree]);
     }
 
     @Override
@@ -60,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("Score", intScore);
         savedInstanceState.putBoolean("isActive", boolIsActive);
+        savedInstanceState.putInt("SpeedReelOne", intSpeedReelOne);
+        savedInstanceState.putInt("SpeedReelTwo", intSpeedReelTwo);
+        savedInstanceState.putInt("SpeedReelThree", intSpeedReelThree);
+        savedInstanceState.putInt("imgOne", intIMGOne);
+        savedInstanceState.putInt("imgTwo", intIMGTwo);
+        savedInstanceState.putInt("imgThree", intIMGThree);
     }
 
     private void resumeInstanceState(Bundle savedInstanceState){
@@ -67,6 +79,35 @@ public class MainActivity extends AppCompatActivity {
             intScore = savedInstanceState.getInt("Score");
             boolIsActive = savedInstanceState.getBoolean("isActive");
             tvScore.setText(getString(R.string.tvScore, intScore));
+            intSpeedReelOne = savedInstanceState.getInt("SpeedReelOne");
+            intSpeedReelTwo = savedInstanceState.getInt("SpeedReelTwo");
+            intSpeedReelThree = savedInstanceState.getInt("SpeedReelThree");
+            intIMGOne = savedInstanceState.getInt("imgOne");
+            intIMGTwo = savedInstanceState.getInt("imgTwo");
+            intIMGThree = savedInstanceState.getInt("imgThree");
+
+            if(boolIsActive){
+                ivReelOne.setImageDrawable(drwImages[intIMGOne]);
+                ivReelTwo.setImageDrawable(drwImages[intIMGTwo]);
+                ivReelThree.setImageDrawable(drwImages[intIMGThree]);
+                btnStart.setText(R.string.btnStop);
+            }
+        }
+    }
+
+    public void onPause(){
+        super.onPause();
+        hndlrReels.removeCallbacks(ReelOne);
+        hndlrReels.removeCallbacks(ReelTwo);
+        hndlrReels.removeCallbacks(ReelThree);
+    }
+
+    public void onResume(){
+        super.onResume();
+        if(boolIsActive){
+            hndlrReels.postDelayed(ReelOne, 0);
+            hndlrReels.postDelayed(ReelTwo, 0);
+            hndlrReels.postDelayed(ReelThree, 0);
         }
     }
 
@@ -288,21 +329,5 @@ public class MainActivity extends AppCompatActivity {
     public void btnHelp(View view){
         Intent HelpScreen = new Intent(this, HelpScreen.class);
         startActivity(HelpScreen);
-    }
-
-    public void onPause(){
-        super.onPause();
-        hndlrReels.removeCallbacks(ReelOne);
-        hndlrReels.removeCallbacks(ReelTwo);
-        hndlrReels.removeCallbacks(ReelThree);
-    }
-
-    public void onResume(){
-        super.onResume();
-        if(boolIsActive){
-            hndlrReels.postDelayed(ReelOne, 0);
-            hndlrReels.postDelayed(ReelTwo, 0);
-            hndlrReels.postDelayed(ReelThree, 0);
-        }
     }
 }
