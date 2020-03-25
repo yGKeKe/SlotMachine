@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         ReelThree = new ReelThree();
     }
 
+    @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("Score", intScore);
