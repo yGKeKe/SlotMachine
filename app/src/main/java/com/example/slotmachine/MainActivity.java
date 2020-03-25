@@ -16,7 +16,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private ImageView ivReelOne, ivReelTwo, ivReelThree;
-    private Drawable drwCherry, drwGrape, drwStrawBerry, drwPear;
     private Drawable[] drwImages;
     private TextView tvScore;
     private SeekBar seekbarDifficulty;
@@ -40,14 +39,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFields(){
+        drwImages = new Drawable[]{getDrawable(R.drawable.cherry), getDrawable(R.drawable.grape), getDrawable(R.drawable.strawberry), getDrawable(R.drawable.pear)};
         ivReelOne = findViewById(R.id.ivReelOne);
         ivReelTwo = findViewById(R.id.ivReelTwo);
         ivReelThree = findViewById(R.id.ivReelThree);
-        drwCherry = getDrawable(R.drawable.cherry);
-        drwGrape = getDrawable(R.drawable.grape);
-        drwStrawBerry = getDrawable(R.drawable.strawberry);
-        drwPear = getDrawable(R.drawable.pear);
-        drwImages = new Drawable[]{drwCherry, drwGrape, drwStrawBerry, drwPear};
         tvScore = findViewById(R.id.tvScorePoints);
         btnStart = findViewById(R.id.btnStart);
         seekbarDifficulty = findViewById(R.id.seekbarDifficulty);
@@ -116,11 +111,7 @@ public class MainActivity extends AppCompatActivity {
     private class ReelOne implements Runnable{
         public void run(){
             ivReelOne.setImageDrawable(drwImages[intIMGOne]);
-            if(intIMGOne == 3){
-                intIMGOne = 0;
-            }else{
-                intIMGOne++;
-            }
+            intIMGOne = (intIMGOne == 3) ? 0 : intIMGOne + 1;
             hndlrReels.postDelayed(ReelOne, intSpeedReelOne);
         }
     }
@@ -128,11 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private class ReelTwo implements Runnable{
         public void run(){
             ivReelTwo.setImageDrawable(drwImages[intIMGTwo]);
-            if(intIMGTwo == 3){
-                intIMGTwo = 0;
-            }else{
-                intIMGTwo++;
-            }
+            intIMGTwo = (intIMGTwo == 3) ? 0 : intIMGTwo + 1;
             hndlrReels.postDelayed(ReelTwo, intSpeedReelTwo);
         }
     }
@@ -140,11 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private class ReelThree implements Runnable{
         public void run(){
             ivReelThree.setImageDrawable(drwImages[intIMGThree]);
-            if(intIMGThree == 3){
-                intIMGThree = 0;
-            }else{
-                intIMGThree++;
-            }
+            intIMGThree = (intIMGThree == 3) ? 0 : intIMGThree + 1;
             hndlrReels.postDelayed(ReelThree, intSpeedReelThree);
         }
     }
