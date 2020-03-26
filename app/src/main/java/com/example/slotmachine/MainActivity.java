@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt("imgOne", intIMGOne);
         savedInstanceState.putInt("imgTwo", intIMGTwo);
         savedInstanceState.putInt("imgThree", intIMGThree);
+        savedInstanceState.putInt("initSpeedOne", intInitSpeedReelOne);
+        savedInstanceState.putInt("initSpeedTwo", intInitSpeedReelTwo);
+        savedInstanceState.putInt("initSpeedThree", intInitSpeedReelThree);
     }
 
     private void resumeInstanceState(Bundle savedInstanceState){
@@ -79,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
             intScore = savedInstanceState.getInt("Score");
             boolIsActive = savedInstanceState.getBoolean("isActive");
             tvScore.setText(getString(R.string.tvScore, intScore));
+            intInitSpeedReelOne = savedInstanceState.getInt("initSpeedOne");
+            intInitSpeedReelTwo = savedInstanceState.getInt("initSpeedTwo");
+            intInitSpeedReelThree = savedInstanceState.getInt("initSpeedThree");
             intSpeedReelOne = savedInstanceState.getInt("SpeedReelOne");
             intSpeedReelTwo = savedInstanceState.getInt("SpeedReelTwo");
             intSpeedReelThree = savedInstanceState.getInt("SpeedReelThree");
@@ -141,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
         if(intIMGOne == intIMGTwo && intIMGOne == intIMGThree){
             intScore += 50;
         }else{
-            if(intIMGOne == 1) intScore += 10;
-            if(intIMGTwo == 1) intScore += 10;
-            if(intIMGThree == 1) intScore += 10;
+            if(intIMGOne == 0) intScore += 10;
+            if(intIMGTwo == 0) intScore += 10;
+            if(intIMGThree == 0) intScore += 10;
         }
 
         tvScore.setText(getString(R.string.tvScore, intScore));
@@ -151,24 +157,24 @@ public class MainActivity extends AppCompatActivity {
 
     private class ReelOne implements Runnable{
         public void run(){
-            ivReelOne.setImageDrawable(drwImages[intIMGOne]);
             intIMGOne = (intIMGOne == 3) ? 0 : intIMGOne + 1;
+            ivReelOne.setImageDrawable(drwImages[intIMGOne]);
             hndlrReels.postDelayed(ReelOne, intSpeedReelOne);
         }
     }
 
     private class ReelTwo implements Runnable{
         public void run(){
-            ivReelTwo.setImageDrawable(drwImages[intIMGTwo]);
             intIMGTwo = (intIMGTwo == 3) ? 0 : intIMGTwo + 1;
+            ivReelTwo.setImageDrawable(drwImages[intIMGTwo]);
             hndlrReels.postDelayed(ReelTwo, intSpeedReelTwo);
         }
     }
 
     private class ReelThree implements Runnable{
         public void run(){
-            ivReelThree.setImageDrawable(drwImages[intIMGThree]);
             intIMGThree = (intIMGThree == 3) ? 0 : intIMGThree + 1;
+            ivReelThree.setImageDrawable(drwImages[intIMGThree]);
             hndlrReels.postDelayed(ReelThree, intSpeedReelThree);
         }
     }
@@ -251,71 +257,7 @@ public class MainActivity extends AppCompatActivity {
         seekbarDifficulty.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                switch(progress){
-                    case 0:
-                        seekbarDifficultySpeedMultiplier(5.0);
-                        break;
-                    case 1:
-                        seekbarDifficultySpeedMultiplier(4.8);
-                        break;
-                    case 2:
-                        seekbarDifficultySpeedMultiplier(4.6);
-                        break;
-                    case 3:
-                        seekbarDifficultySpeedMultiplier(4.4);
-                        break;
-                    case 4:
-                        seekbarDifficultySpeedMultiplier(4.2);
-                        break;
-                    case 5:
-                        seekbarDifficultySpeedMultiplier(4.0);
-                        break;
-                    case 6:
-                        seekbarDifficultySpeedMultiplier(3.8);
-                        break;
-                    case 7:
-                        seekbarDifficultySpeedMultiplier(3.6);
-                        break;
-                    case 8:
-                        seekbarDifficultySpeedMultiplier(3.4);
-                        break;
-                    case 9:
-                        seekbarDifficultySpeedMultiplier(3.2);
-                        break;
-                    case 10:
-                        seekbarDifficultySpeedMultiplier(3.0);
-                        break;
-                    case 11:
-                        seekbarDifficultySpeedMultiplier(2.8);
-                        break;
-                    case 12:
-                        seekbarDifficultySpeedMultiplier(2.6);
-                        break;
-                    case 13:
-                        seekbarDifficultySpeedMultiplier(2.4);
-                        break;
-                    case 14:
-                        seekbarDifficultySpeedMultiplier(2.2);
-                        break;
-                    case 15:
-                        seekbarDifficultySpeedMultiplier(2.0);
-                        break;
-                    case 16:
-                        seekbarDifficultySpeedMultiplier(1.8);
-                        break;
-                    case 17:
-                        seekbarDifficultySpeedMultiplier(1.6);
-                        break;
-                    case 18:
-                        seekbarDifficultySpeedMultiplier(1.4);
-                        break;
-                    case 19:
-                        seekbarDifficultySpeedMultiplier(1.2);
-                        break;
-                    case 20:
-                        seekbarDifficultySpeedMultiplier(1.0);
-                        break;
-                }
+                initSeekBarProgress(progress);
             }
 
             @Override
