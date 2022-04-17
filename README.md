@@ -1,2 +1,2 @@
 # SlotMachine
-Class project designed to understand implementing multiple threads and synchronization.
+Class project designed to improve understanding of implementing multiple threads and synchronization.
